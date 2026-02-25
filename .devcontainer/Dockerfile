@@ -1,12 +1,20 @@
 FROM amazonlinux:2023
 
-# Install Apache, PHP, and MySQL
-RUN dnf update -y && \
-    dnf install -y httpd php php-mysqlnd mariadb105-server && \
-    dnf clean all
+# Update all packages
+RUN dnf upgrade -y
 
-# Expose port 80 for Apache
+# Install Apache, PHP, and MariaDB
+RUN dnf install -y httpd wget php-fpm php-mysqli php-json php php-devel mariadb105-server
+
+# Set up permissions and ownership
+RUN usermod -a -G apache ec2-user && \
+    chown -R ec2-user:apache /var/www && \
+    chmod 2775 /var/www && \
+    find /var/www -type d -exec chmod 2775 {} \; && \
+    find /var/www -type f -exec chmod 0664 {} \;
+
+# Expose HTTP port
 EXPOSE 80
 
-# Start Apache by default
+# Start Apache when the container starts
 CMD ["/usr/sbin/httpd", "-D", "FOREGROUND"]
