@@ -1,9 +1,20 @@
 {
   "name": "Amazon Linux 2023 LAMP Dev",
+
+  // ==========================================================================
+  // Build — points to the Dockerfile in this folder to create an
+  // Amazon Linux 2023 image with Apache, PHP, and MariaDB pre-installed.
+  // ==========================================================================
   "build": {
     "context": ".",
     "dockerfile": "Dockerfile"
   },
+
+  // ==========================================================================
+  // Ports — forward port 80 from the container to the host so the Apache
+  // web server is accessible in the browser. onAutoForward opens it
+  // automatically in VS Code's Simple Browser preview.
+  // ==========================================================================
   "forwardPorts": [80],
   "customizations": {
     "vscode": {
@@ -16,5 +27,12 @@
       }
     }
   },
+
+  // ==========================================================================
+  // Post-Create — runs once after the container is built.
+  // The script starts MariaDB, Apache, and PHP-FPM, then downloads and
+  // installs WordPress and phpMyAdmin into /var/www/html/.
+  // See .devcontainer/postCreate.sh for full details.
+  // ==========================================================================
   "postCreateCommand": "bash .devcontainer/postCreate.sh"
 }
