@@ -1,6 +1,7 @@
 {
   "name": "Amazon Linux 2023 WordPress Dev",
   "build": {
+    "context": ".",
     "dockerfile": "Dockerfile"
   },
   "forwardPorts": [80],
