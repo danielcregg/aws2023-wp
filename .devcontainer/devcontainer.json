@@ -16,5 +16,5 @@
       }
     }
   },
-  "postCreateCommand": "sudo systemctl start mariadb"
+  "postCreateCommand": "bash .devcontainer/postCreate.sh"
 }

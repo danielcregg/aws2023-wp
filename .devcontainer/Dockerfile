@@ -4,7 +4,7 @@ FROM amazonlinux:2023
 RUN dnf upgrade -y
 
 # Install Apache, PHP, and MariaDB
-RUN dnf install -y httpd wget php-fpm php-mysqli php-json php php-devel mariadb105-server
+RUN dnf install -y httpd wget php-fpm php-mysqli php-json php php-devel php-mbstring php-xml mariadb105-server
 
 # Set up permissions and ownership
 RUN usermod -a -G apache ec2-user && \
