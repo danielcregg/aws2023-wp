@@ -1,9 +1,20 @@
 {
-  "name": "Amazon Linux 2023 WordPress Dev",
+  "name": "Amazon Linux 2023 LAMP Dev",
   "build": {
     "context": ".",
     "dockerfile": "Dockerfile"
   },
   "forwardPorts": [80],
+  "customizations": {
+    "vscode": {
+      "settings": {
+        "ports.attributes": {
+          "80": {
+            "onAutoForward": "openPreview"
+          }
+        }
+      }
+    }
+  },
   "postCreateCommand": "sudo systemctl start mariadb"
 }
