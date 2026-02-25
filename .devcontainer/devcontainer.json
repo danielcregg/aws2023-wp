@@ -2,13 +2,13 @@
   "name": "Amazon Linux 2023 LAMP Dev",
 
   // ==========================================================================
-  // Build — points to the Dockerfile in this folder to create an
-  // Amazon Linux 2023 image with Apache, PHP, and MariaDB pre-installed.
+  // Image — pulls the pre-built image from the GitHub Container Registry.
+  // The image is built automatically by the GitHub Actions workflow at
+  // .github/workflows/docker-publish.yml whenever the Dockerfile changes.
+  // Using a pre-built image means Codespaces starts in seconds rather than
+  // waiting several minutes for the image to compile from scratch.
   // ==========================================================================
-  "build": {
-    "context": ".",
-    "dockerfile": "Dockerfile"
-  },
+  "image": "ghcr.io/danielcregg/aws2023-wp:latest",
 
   // ==========================================================================
   // Ports — forward port 80 from the container to the host so the Apache
