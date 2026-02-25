@@ -42,12 +42,14 @@ RUN dnf install -y \
 
 # =============================================================================
 # Web Root Permissions
-#   - Set apache as owner of /var/www so the web server can read/write files
+#   - Create the apache group and ec2-user (not present in the base image)
+#   - Add ec2-user to the apache group to mirror a real EC2 environment
 #   - Set SGID bit on directories so new files inherit the apache group
-# Note: ec2-user is not present in a container — ownership goes directly to
-#       apache, which is equivalent for development purposes.
 # =============================================================================
-RUN chown -R apache:apache /var/www && \
+RUN groupadd -f apache && \
+    useradd -m -s /bin/bash ec2-user && \
+    usermod -a -G apache ec2-user && \
+    chown -R ec2-user:apache /var/www && \
     chmod 2775 /var/www && \
     find /var/www -type d -exec chmod 2775 {} \; && \
     find /var/www -type f -exec chmod 0664 {} \;
