@@ -1,0 +1,8 @@
+{
+  "name": "Amazon Linux 2023 WordPress Dev",
+  "build": {
+    "dockerfile": "Dockerfile"
+  },
+  "forwardPorts": [80],
+  "postCreateCommand": "sudo systemctl start mariadb"
+}
